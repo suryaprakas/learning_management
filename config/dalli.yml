@@ -1,0 +1,13 @@
+default: &default
+  namespace: Learn
+  host: ['localhost']
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+  host: <%= ENV['LEARN_MEMCACHED_HOST'] %>
+
+test:
+  <<: *default
