@@ -1,0 +1,42 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "answers",
+  "apis": [
+    {
+      "path": "/api/v1/answers.json",
+      "operations": [
+        {
+          "summary": "Answer a particular question",
+          "parameters": [
+            {
+              "paramType": "form",
+              "name": "answer[question_id]",
+              "type": "integer",
+              "description": "Question ID",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "answer[is_skipped]",
+              "type": "boolean",
+              "description": "Skipped or not",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "answer[option_id]",
+              "type": "integer",
+              "description": "Option Id",
+              "required": true
+            }
+          ],
+          "nickname": "Api::V1::Answers#create",
+          "method": "post"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

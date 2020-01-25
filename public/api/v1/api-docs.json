@@ -9,7 +9,15 @@
     },
     {
       "path": "/api/v1/api/v1/users.{format}",
-      "description": "Users Sessions"
+      "description": "Users Management"
+    },
+    {
+      "path": "/api/v1/api/v1/answers.{format}",
+      "description": "Answers Management"
+    },
+    {
+      "path": "/api/v1/api/v1/questions.{format}",
+      "description": "Questions Management"
     }
   ],
   "authorizations": null

@@ -1,0 +1,1 @@
+Lms::Settings = HashWithIndifferentAccess.new(Rails.application.config_for(:'lms'))

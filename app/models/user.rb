@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  # validations
+  validates_uniqueness_of :email, :case_sensitive => false
+  validates_presence_of [ :first_name, :last_name ]
 
   def generate_api_key
     api_key = formulate_key
@@ -33,7 +36,39 @@ class User < ApplicationRecord
     end
     user
   end
-  
+
+  def self.find_for_database_authentication(conditions)
+    email = conditions.delete(:login)
+    password = conditions.delete(:password)
+    user = User.where(email: email).first
+    if user.valid_password?(password)
+      user
+    else
+      raise CagSelfApi::Exception::InvalidParameter.new(_('devise.invalid_user_or_password'))
+    end
+    user
+  end
+
+  def get_user_unattempted_questions(total_question_ids)
+    user_attempted_question_ids = self.get_user_attempted_questions(total_question_ids)
+    unattempted_question_ids = total_question_ids - user_attempted_question_ids
+    unattempted_question_ids
+  end
+
+  def get_user_attempted_questions(total_question_ids)
+    user_attempted_question_ids = Answer.where(user_id: self.id, is_skipped: false, question_id: total_question_ids).pluck(:question_id)
+    user_attempted_question_ids
+  end
+
+  def get_user_skipped_questions(total_question_ids)
+    user_skipped_question_ids = Answer.where(user_id: self.id, is_skipped: true, question_id: total_question_ids)
+    user_skipped_question_ids
+  end
+
+  def get_user_questions_details(total_question_ids)
+    return self.get_user_attempted_questions(total_question_ids), self.get_user_unattempted_questions(total_question_ids), self.get_user_skipped_questions(total_question_ids)
+  end
+
   private
   
   def formulate_key

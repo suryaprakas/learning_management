@@ -1,0 +1,89 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "questions",
+  "apis": [
+    {
+      "path": "/api/v1/questions/list.json",
+      "operations": [
+        {
+          "summary": "Shows questions within a chapter or topic or subject or Exam.",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "exam_id",
+              "type": "integer",
+              "description": "Exam ID",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "subject_id",
+              "type": "integer",
+              "description": "Subject ID",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "topic_id",
+              "type": "integer",
+              "description": "Topic Id",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "chapter_id",
+              "type": "integer",
+              "description": "Chapter Id",
+              "required": false
+            }
+          ],
+          "nickname": "Api::V1::Questions#list",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/api/v1/questions/calculate_percenatge.json",
+      "operations": [
+        {
+          "summary": "Shows users percentages within a chapter or topic or subject or Exam.",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "exam_id",
+              "type": "integer",
+              "description": "Exam ID",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "subject_id",
+              "type": "integer",
+              "description": "Subject ID",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "topic_id",
+              "type": "integer",
+              "description": "Topic Id",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "chapter_id",
+              "type": "integer",
+              "description": "Chapter Id",
+              "required": false
+            }
+          ],
+          "nickname": "Api::V1::Questions#calculate_percenatge",
+          "method": "get"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

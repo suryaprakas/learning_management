@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from Lms::Exception::InvalidParameter, with: :invalid_parameter
   
     def authenticate_user_token!
       unauthorized_access if current_user.blank?
@@ -26,12 +27,8 @@ class ApplicationController < ActionController::Base
       render_error_json("Authentication Failure", :unauthorized)
     end
   
-    def invalid_parameter!(parameter_name)
-      raise "Invalid Parameter"
-    end
-  
     def invalid_parameter(exception)
-      render_error_json(exception.message, :bad_request)
+      render_error_json(exception.message)
     end
   
     def forbidden_access

@@ -14,6 +14,16 @@ Rails.application.routes.draw do
           get :profile
         end
       end
+
+      resources :answers, only: [:create] do
+      end
+
+      resources :questions do
+        collection do
+          get :list
+          get :calculate_percenatge
+        end
+      end
     end
   end
 end

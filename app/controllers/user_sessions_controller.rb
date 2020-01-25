@@ -30,7 +30,7 @@ class UserSessionsController < Devise::SessionsController
   end
   # POST /resource/sign_in
   def create
-    resource = warden.authenticate!(auth_options)
+    resource = User.find_for_database_authentication({ login: params[:user][:email], password: params[:user][:password] })
     sign_in(resource_name, resource)
     render json: { api_key: resource.generate_api_key }, status: :created
   end

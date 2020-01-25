@@ -30,4 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  views:
+    answers:
+      already_answered: "You already answered this question.Please answer another question."
   hello: "Hello world"

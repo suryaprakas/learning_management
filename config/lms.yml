@@ -1,0 +1,17 @@
+## Environment settings
+defaults: &defaults
+
+development: &development
+  host: localhost
+  port: 3000
+  protocol: http
+  <<: *defaults
+
+test:
+  <<: *development
+
+production:
+  host: <%= ENV['LMS_HOST_NAME'] %>
+  port: 443
+  protocol: https
+  <<: *defaults
