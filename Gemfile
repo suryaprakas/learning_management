@@ -39,6 +39,10 @@ gem 'swagger-docs'
 # dalli
 gem 'dalli'
 
+# for pdf generation
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

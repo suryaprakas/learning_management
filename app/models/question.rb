@@ -27,11 +27,7 @@ class Question < ApplicationRecord
   end
 
   def self.get_total_percentage(attempted_question_ids, unattempted_question_ids, skipped_question_ids, total_question_ids)
-    hash = {}
-    hash[:attempted_question_percentage] = Question.calculate_percentage(attempted_question_ids, total_question_ids)
-    hash[:unattempted_question_percentage] = Question.calculate_percentage(unattempted_question_ids, total_question_ids)
-    hash[:skipped_question_percentage] = Question.calculate_percentage(skipped_question_ids, total_question_ids)
-    hash
+    return { attempted_question_percentage: Question.calculate_percentage(attempted_question_ids, total_question_ids), unattempted_question_percentage: Question.calculate_percentage(unattempted_question_ids, total_question_ids), skipped_question_percentage: Question.calculate_percentage(skipped_question_ids, total_question_ids) } 
   end
   
 end

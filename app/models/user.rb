@@ -9,7 +9,6 @@ class User < ApplicationRecord
 
   def generate_api_key
     api_key = formulate_key
-    debugger
     # Write it into cache
     Rails.cache.write(User.cached_api_key(api_key),
       self.id,
@@ -63,6 +62,16 @@ class User < ApplicationRecord
   def get_user_skipped_questions(total_question_ids)
     user_skipped_question_ids = Answer.where(user_id: self.id, is_skipped: true, question_id: total_question_ids)
     user_skipped_question_ids
+  end
+
+  def get_user_correct_questions(total_question_ids)
+    user_correct_question_ids = Answer.where(user_id: self.id, question_id: total_question_ids, is_answer_correct: true)
+    user_correct_question_ids
+  end
+
+  def get_user_incorrect_questions(total_question_ids)
+    user_incorrect_question_ids = Answer.where(user_id: self.id, question_id: total_question_ids, is_answer_correct: false)
+    user_incorrect_question_ids
   end
 
   def get_user_questions_details(total_question_ids)

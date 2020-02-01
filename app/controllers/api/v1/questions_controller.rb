@@ -34,8 +34,20 @@ class Api::V1::QuestionsController < ApplicationController
     end
 
     def calculate_percenatge
-      @calculate_percenatge = Answer.calculate_user_percenatge(params, current_user)
-      render json: {details: @calculate_percenatge}, status: :ok
+      counts, calculate_percenatge = Answer.calculate_user_percenatge(params, current_user)
+      kit = PDFKit.new("<html><h1><center>Percentage Report</center></h1><br>
+        <h4>Attempted Question Count: #{counts[:attempted_question_count]}</h4>
+        <h4>UnAttempted Question Count: #{counts[:unattempted_question_count]}</h4>
+        <h4>Skipped Question Count: #{counts[:skipped_question_count]}</h1>
+        <h4>Correct Question Count: #{counts[:correct_question_count]}</h4>
+        <h4>Incorrect Question Count: #{counts[:incorrect_question_count]}</h1>
+        <h4>Attempted Question Percentage: #{calculate_percenatge[:attempted_question_percentage]}</h4>
+        <h4>UnAttempted Question Percentage: #{calculate_percenatge[:unattempted_question_percentage]}</h4>
+        <h4>Skipped Question Percentage: #{calculate_percenatge[:skipped_question_percentage]}</h1></html>")
+      file_name = "#{"report"}_#{Time.now.to_i}.pdf"
+      file_path = "#{Rails.public_path}/pdfs/#{file_name}"
+      file = kit.to_file(file_path)
+      render json: { download_url: "#{Lms::Settings[:url]}/pdfs/#{file_name}"}
     end
 
     private
